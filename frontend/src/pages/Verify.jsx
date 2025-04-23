@@ -144,6 +144,7 @@ const Verify = () => {
       
       if (response.data.success) {
         setCartItems({});
+        localStorage.removeItem('cart');
         setStatus('Payment verified! Redirecting to your orders...');
         setTimeout(() => navigate('/orders'), 2000);
       } else {

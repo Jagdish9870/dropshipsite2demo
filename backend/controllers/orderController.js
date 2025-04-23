@@ -222,29 +222,6 @@ const placeOrderPayU = async (req, res) => {
 };
 
 
-
-  
-  // const verifyPayU = async (req, res) => {
-  //   const { mihpayid, txnid, status } = req.body;
-  
-  //   try {
-  //     const orderId = txnid;
-  
-  //     if (status === "success") {
-  //       await orderModel.findByIdAndUpdate(orderId, { payment: true });
-  //       res.redirect(`/verify?success=true&orderId=${orderId}`);
-  //     } else {
-  //       await orderModel.findByIdAndDelete(orderId);
-  //       res.redirect(`/verify?success=false&orderId=${orderId}`);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     res.redirect(
-  //       `/verify?success=false&error=${encodeURIComponent(error.message)}`
-  //     );
-  //   }
-  // };
-
   const verifyPayU = async (req, res) => {
     const { txnid, status } = req.body;
   
@@ -266,7 +243,7 @@ const placeOrderPayU = async (req, res) => {
         // res.redirect(`http://localhost:5173/verify?success=true&orderId=${orderId}`);
         res.json({ success: true, orderId });
       } else {
-        // await orderModel.findByIdAndDelete(orderId);
+        await orderModel.findByIdAndDelete(orderId);
         // res.redirect(`http://localhost:5173/verify?success=false&orderId=${orderId}`);
         res.json({ success: false, orderId });
       }
