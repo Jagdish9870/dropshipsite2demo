@@ -232,7 +232,8 @@ const placeOrderPayU = async (req, res) => {
       console.log("hello", order);
       
       if (!order) {
-        return res.redirect(`http://localhost:5173/verify?success=false&orderId=${txnid}`);
+      res.json({ success: false, message: error.message });
+        return;
       }
   
       const orderId = order._id;
@@ -240,18 +241,13 @@ const placeOrderPayU = async (req, res) => {
       if (status === "success") {
         order.payment = true;
         await order.save();
-        // res.redirect(`http://localhost:5173/verify?success=true&orderId=${orderId}`);
         res.json({ success: true, orderId });
       } else {
         await orderModel.findByIdAndDelete(orderId);
-        // res.redirect(`http://localhost:5173/verify?success=false&orderId=${orderId}`);
         res.json({ success: false, orderId });
       }
     } catch (error) {
       console.log("Payment Verification Error:", error);
-      // res.redirect(
-      //   `http://localhost:5173/verify?success=false&error=${encodeURIComponent(error.message)}`
-      // );
       res.json({ success: false, message: error.message });
 
     }

@@ -57,16 +57,20 @@ const Cart = () => {
     return total;
   };
 
-  const subtotal = getSubtotal();
-  const shipping = 100;
 
+  const subtotal = getSubtotal();
+const shipping = 100;
+
+useEffect(() => {
   if (discountType === 'flat') {
-      setDiscount(discountValue);    
+    setDiscount(discountValue);
   } else if (discountType === 'percentage') {
     setDiscount((discountValue / 100) * subtotal);
   }
+}, [discountType, discountValue, subtotal]);
 
-  const total = subtotal + shipping - discount;
+const total = subtotal + shipping - discount;
+
 
   const handleProceedToCheckout = () => {
     if (cartData.length === 0) {
